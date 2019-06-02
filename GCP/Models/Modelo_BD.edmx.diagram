@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3fd88cea51b54a829fa6a5a2e6b9f495" Name="Diagram1">
+        <EntityTypeShape EntityType="GCP_BDModel.Contratos" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GCP_BDModel.ContratosMarco" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GCP_BDModel.Personas" Width="1.5" PointX="5.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GCP_BDModel.sysdiagrams" Width="1.5" PointX="9.125" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GCP_BDModel.TiposContratos" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GCP_BDModel.TiposPersona" Width="1.5" PointX="5.75" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="GCP_BDModel.FK_Contratos_ContratosMarco" ManuallyRouted="false" />
+        <AssociationConnector Association="GCP_BDModel.FK_Contratos_TiposContratos" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GCP_BDModel.TiposEstadoContrato" Width="1.5" PointX="0.75" PointY="7.875" />
+        <EntityTypeShape EntityType="GCP_BDModel.TiposNaturaleza" Width="1.5" PointX="3.5" PointY="9" />
+        <AssociationConnector Association="GCP_BDModel.FK_Contratos_Personas" />
+        <AssociationConnector Association="GCP_BDModel.FK_Contratos_Personas1" />
+        <AssociationConnector Association="GCP_BDModel.FK_Contratos_TiposEstadoContrato" />
+        <AssociationConnector Association="GCP_BDModel.FK_Personas_TiposPersona" />
+        <AssociationConnector Association="GCP_BDModel.FK_TiposPersona_TiposNaturaleza" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

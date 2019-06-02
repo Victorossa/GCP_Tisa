@@ -1,0 +1,560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GCP_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contratos">
+          <Key>
+            <PropertyRef Name="Contratos_Id" />
+          </Key>
+          <Property Name="Contratos_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="TipoContrato_Id" Type="int" Nullable="false" />
+          <Property Name="ObjetoContractual" Type="varchar(max)" />
+          <Property Name="Plazo" Type="datetime" />
+          <Property Name="FechaTerminacion" Type="datetime" />
+          <Property Name="PersonaAbogado_Id" Type="int" />
+          <Property Name="PersonaSuperviosr_Id" Type="int" />
+          <Property Name="Crp" Type="int" />
+          <Property Name="Cdp" Type="int" />
+          <Property Name="FechaActaInicio" Type="datetime" />
+          <Property Name="TipoEstadoContrato_Id" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="ValorContrato" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ValorAdministrar" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Honorarios" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PorcentajeFacturado" Type="nchar" MaxLength="10" />
+          <Property Name="PorcentajeFacturadoHonorarios" Type="nchar" MaxLength="10" />
+          <Property Name="PersonaSupervisorTecnico_Id" Type="int" />
+          <Property Name="ContratoMarco_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="ContratosMarco">
+          <Key>
+            <PropertyRef Name="ContratoMarco_Id" />
+          </Key>
+          <Property Name="ContratoMarco_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="Persona_Id" />
+          </Key>
+          <Property Name="Persona_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="200" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="200" />
+          <Property Name="Direccion" Type="varchar" MaxLength="200" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Correo" Type="varchar" MaxLength="200" />
+          <Property Name="TipoPersona_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TiposContratos">
+          <Key>
+            <PropertyRef Name="TipoContrato_Id" />
+          </Key>
+          <Property Name="TipoContrato_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposEstadoContrato">
+          <Key>
+            <PropertyRef Name="TipoEstadoContrato_Id" />
+          </Key>
+          <Property Name="TipoEstadoContrato_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposNaturaleza">
+          <Key>
+            <PropertyRef Name="Naturaleza_Id" />
+          </Key>
+          <Property Name="Naturaleza_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TiposPersona">
+          <Key>
+            <PropertyRef Name="TipoPersona_Id" />
+          </Key>
+          <Property Name="TipoPersona_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="Naturaleza_Id" Type="int" />
+          <Property Name="Cargo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Contratos_ContratosMarco">
+          <End Role="ContratosMarco" Type="Self.ContratosMarco" Multiplicity="0..1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContratosMarco">
+              <PropertyRef Name="ContratoMarco_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="ContratoMarco_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Personas">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="0..1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Persona_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="PersonaAbogado_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Personas1">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="0..1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Persona_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="PersonaSuperviosr_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_TiposContratos">
+          <End Role="TiposContratos" Type="Self.TiposContratos" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposContratos">
+              <PropertyRef Name="TipoContrato_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="TipoContrato_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_TiposEstadoContrato">
+          <End Role="TiposEstadoContrato" Type="Self.TiposEstadoContrato" Multiplicity="0..1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposEstadoContrato">
+              <PropertyRef Name="TipoEstadoContrato_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="TipoEstadoContrato_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Personas_TiposPersona">
+          <End Role="TiposPersona" Type="Self.TiposPersona" Multiplicity="0..1" />
+          <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposPersona">
+              <PropertyRef Name="TipoPersona_Id" />
+            </Principal>
+            <Dependent Role="Personas">
+              <PropertyRef Name="TipoPersona_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TiposPersona_TiposNaturaleza">
+          <End Role="TiposNaturaleza" Type="Self.TiposNaturaleza" Multiplicity="0..1" />
+          <End Role="TiposPersona" Type="Self.TiposPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposNaturaleza">
+              <PropertyRef Name="Naturaleza_Id" />
+            </Principal>
+            <Dependent Role="TiposPersona">
+              <PropertyRef Name="Naturaleza_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GCP_BDModelStoreContainer">
+          <EntitySet Name="Contratos" EntityType="Self.Contratos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContratosMarco" EntityType="Self.ContratosMarco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposContratos" EntityType="Self.TiposContratos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposEstadoContrato" EntityType="Self.TiposEstadoContrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposNaturaleza" EntityType="Self.TiposNaturaleza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposPersona" EntityType="Self.TiposPersona" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Contratos_ContratosMarco" Association="Self.FK_Contratos_ContratosMarco">
+            <End Role="ContratosMarco" EntitySet="ContratosMarco" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Personas" Association="Self.FK_Contratos_Personas">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Personas1" Association="Self.FK_Contratos_Personas1">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_TiposContratos" Association="Self.FK_Contratos_TiposContratos">
+            <End Role="TiposContratos" EntitySet="TiposContratos" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_TiposEstadoContrato" Association="Self.FK_Contratos_TiposEstadoContrato">
+            <End Role="TiposEstadoContrato" EntitySet="TiposEstadoContrato" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personas_TiposPersona" Association="Self.FK_Personas_TiposPersona">
+            <End Role="TiposPersona" EntitySet="TiposPersona" />
+            <End Role="Personas" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TiposPersona_TiposNaturaleza" Association="Self.FK_TiposPersona_TiposNaturaleza">
+            <End Role="TiposNaturaleza" EntitySet="TiposNaturaleza" />
+            <End Role="TiposPersona" EntitySet="TiposPersona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GCP_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contratos">
+          <Key>
+            <PropertyRef Name="Contratos_Id" />
+          </Key>
+          <Property Name="Contratos_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TipoContrato_Id" Type="Int32" Nullable="false" />
+          <Property Name="ObjetoContractual" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Plazo" Type="DateTime" Precision="3" />
+          <Property Name="FechaTerminacion" Type="DateTime" Precision="3" />
+          <Property Name="PersonaAbogado_Id" Type="Int32" />
+          <Property Name="PersonaSuperviosr_Id" Type="Int32" />
+          <Property Name="Crp" Type="Int32" />
+          <Property Name="Cdp" Type="Int32" />
+          <Property Name="FechaActaInicio" Type="DateTime" Precision="3" />
+          <Property Name="TipoEstadoContrato_Id" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="ValorContrato" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ValorAdministrar" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Honorarios" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PorcentajeFacturado" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PorcentajeFacturadoHonorarios" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PersonaSupervisorTecnico_Id" Type="Int32" />
+          <Property Name="ContratoMarco_Id" Type="Int32" />
+          <NavigationProperty Name="ContratosMarco" Relationship="Self.FK_Contratos_ContratosMarco" FromRole="Contratos" ToRole="ContratosMarco" />
+          <NavigationProperty Name="TiposContratos" Relationship="Self.FK_Contratos_TiposContratos" FromRole="Contratos" ToRole="TiposContratos" />
+          <NavigationProperty Name="Personas" Relationship="GCP_BDModel.FK_Contratos_Personas" FromRole="Contratos" ToRole="Personas" />
+          <NavigationProperty Name="Personas1" Relationship="GCP_BDModel.FK_Contratos_Personas1" FromRole="Contratos" ToRole="Personas" />
+          <NavigationProperty Name="TiposEstadoContrato" Relationship="GCP_BDModel.FK_Contratos_TiposEstadoContrato" FromRole="Contratos" ToRole="TiposEstadoContrato" />
+        </EntityType>
+        <EntityType Name="ContratosMarco">
+          <Key>
+            <PropertyRef Name="ContratoMarco_Id" />
+          </Key>
+          <Property Name="ContratoMarco_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Contratos" Relationship="Self.FK_Contratos_ContratosMarco" FromRole="ContratosMarco" ToRole="Contratos" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="Persona_Id" />
+          </Key>
+          <Property Name="Persona_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPersona_Id" Type="Int32" />
+          <NavigationProperty Name="Contratos" Relationship="GCP_BDModel.FK_Contratos_Personas" FromRole="Personas" ToRole="Contratos" />
+          <NavigationProperty Name="Contratos1" Relationship="GCP_BDModel.FK_Contratos_Personas1" FromRole="Personas" ToRole="Contratos" />
+          <NavigationProperty Name="TiposPersona" Relationship="GCP_BDModel.FK_Personas_TiposPersona" FromRole="Personas" ToRole="TiposPersona" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TiposContratos">
+          <Key>
+            <PropertyRef Name="TipoContrato_Id" />
+          </Key>
+          <Property Name="TipoContrato_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Contratos" Relationship="Self.FK_Contratos_TiposContratos" FromRole="TiposContratos" ToRole="Contratos" />
+        </EntityType>
+        <EntityType Name="TiposPersona">
+          <Key>
+            <PropertyRef Name="TipoPersona_Id" />
+          </Key>
+          <Property Name="TipoPersona_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Naturaleza_Id" Type="Int32" />
+          <Property Name="Persona_Id" Type="Int32" />
+          <Property Name="Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Personas" Relationship="GCP_BDModel.FK_Personas_TiposPersona" FromRole="TiposPersona" ToRole="Personas" />
+          <NavigationProperty Name="TiposNaturaleza" Relationship="GCP_BDModel.FK_TiposPersona_TiposNaturaleza" FromRole="TiposPersona" ToRole="TiposNaturaleza" />
+        </EntityType>
+        <Association Name="FK_Contratos_ContratosMarco">
+          <End Role="ContratosMarco" Type="Self.ContratosMarco" Multiplicity="0..1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContratosMarco">
+              <PropertyRef Name="ContratoMarco_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="ContratoMarco_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_TiposContratos">
+          <End Role="TiposContratos" Type="Self.TiposContratos" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposContratos">
+              <PropertyRef Name="TipoContrato_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="TipoContrato_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GCP_BDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contratos" EntityType="Self.Contratos" />
+          <EntitySet Name="ContratosMarco" EntityType="Self.ContratosMarco" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TiposContratos" EntityType="Self.TiposContratos" />
+          <EntitySet Name="TiposPersona" EntityType="Self.TiposPersona" />
+          <AssociationSet Name="FK_Contratos_ContratosMarco" Association="Self.FK_Contratos_ContratosMarco">
+            <End Role="ContratosMarco" EntitySet="ContratosMarco" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_TiposContratos" Association="Self.FK_Contratos_TiposContratos">
+            <End Role="TiposContratos" EntitySet="TiposContratos" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <EntitySet Name="TiposEstadoContrato" EntityType="GCP_BDModel.TiposEstadoContrato" />
+          <EntitySet Name="TiposNaturaleza" EntityType="GCP_BDModel.TiposNaturaleza" />
+          <AssociationSet Name="FK_Contratos_Personas" Association="GCP_BDModel.FK_Contratos_Personas">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Personas1" Association="GCP_BDModel.FK_Contratos_Personas1">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_TiposEstadoContrato" Association="GCP_BDModel.FK_Contratos_TiposEstadoContrato">
+            <End Role="TiposEstadoContrato" EntitySet="TiposEstadoContrato" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personas_TiposPersona" Association="GCP_BDModel.FK_Personas_TiposPersona">
+            <End Role="TiposPersona" EntitySet="TiposPersona" />
+            <End Role="Personas" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TiposPersona_TiposNaturaleza" Association="GCP_BDModel.FK_TiposPersona_TiposNaturaleza">
+            <End Role="TiposNaturaleza" EntitySet="TiposNaturaleza" />
+            <End Role="TiposPersona" EntitySet="TiposPersona" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TiposEstadoContrato">
+          <Key>
+            <PropertyRef Name="TipoEstadoContrato_Id" />
+          </Key>
+          <Property Name="TipoEstadoContrato_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Contratos" Relationship="GCP_BDModel.FK_Contratos_TiposEstadoContrato" FromRole="TiposEstadoContrato" ToRole="Contratos" />
+        </EntityType>
+        <EntityType Name="TiposNaturaleza">
+          <Key>
+            <PropertyRef Name="Naturaleza_Id" />
+          </Key>
+          <Property Name="Naturaleza_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TiposPersona" Relationship="GCP_BDModel.FK_TiposPersona_TiposNaturaleza" FromRole="TiposNaturaleza" ToRole="TiposPersona" />
+        </EntityType>
+        <Association Name="FK_Contratos_Personas">
+          <End Type="GCP_BDModel.Personas" Role="Personas" Multiplicity="0..1" />
+          <End Type="GCP_BDModel.Contratos" Role="Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Persona_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="PersonaAbogado_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Personas1">
+          <End Type="GCP_BDModel.Personas" Role="Personas" Multiplicity="0..1" />
+          <End Type="GCP_BDModel.Contratos" Role="Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Persona_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="PersonaSuperviosr_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_TiposEstadoContrato">
+          <End Type="GCP_BDModel.TiposEstadoContrato" Role="TiposEstadoContrato" Multiplicity="0..1" />
+          <End Type="GCP_BDModel.Contratos" Role="Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposEstadoContrato">
+              <PropertyRef Name="TipoEstadoContrato_Id" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="TipoEstadoContrato_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Personas_TiposPersona">
+          <End Type="GCP_BDModel.TiposPersona" Role="TiposPersona" Multiplicity="0..1" />
+          <End Type="GCP_BDModel.Personas" Role="Personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposPersona">
+              <PropertyRef Name="TipoPersona_Id" />
+            </Principal>
+            <Dependent Role="Personas">
+              <PropertyRef Name="TipoPersona_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TiposPersona_TiposNaturaleza">
+          <End Type="GCP_BDModel.TiposNaturaleza" Role="TiposNaturaleza" Multiplicity="0..1" />
+          <End Type="GCP_BDModel.TiposPersona" Role="TiposPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposNaturaleza">
+              <PropertyRef Name="Naturaleza_Id" />
+            </Principal>
+            <Dependent Role="TiposPersona">
+              <PropertyRef Name="Naturaleza_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GCP_BDModelStoreContainer" CdmEntityContainer="GCP_BDEntities">
+          <EntitySetMapping Name="Contratos">
+            <EntityTypeMapping TypeName="GCP_BDModel.Contratos">
+              <MappingFragment StoreEntitySet="Contratos">
+                <ScalarProperty Name="Contratos_Id" ColumnName="Contratos_Id" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="TipoContrato_Id" ColumnName="TipoContrato_Id" />
+                <ScalarProperty Name="ObjetoContractual" ColumnName="ObjetoContractual" />
+                <ScalarProperty Name="Plazo" ColumnName="Plazo" />
+                <ScalarProperty Name="FechaTerminacion" ColumnName="FechaTerminacion" />
+                <ScalarProperty Name="PersonaAbogado_Id" ColumnName="PersonaAbogado_Id" />
+                <ScalarProperty Name="PersonaSuperviosr_Id" ColumnName="PersonaSuperviosr_Id" />
+                <ScalarProperty Name="Crp" ColumnName="Crp" />
+                <ScalarProperty Name="Cdp" ColumnName="Cdp" />
+                <ScalarProperty Name="FechaActaInicio" ColumnName="FechaActaInicio" />
+                <ScalarProperty Name="TipoEstadoContrato_Id" ColumnName="TipoEstadoContrato_Id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ValorContrato" ColumnName="ValorContrato" />
+                <ScalarProperty Name="ValorAdministrar" ColumnName="ValorAdministrar" />
+                <ScalarProperty Name="Honorarios" ColumnName="Honorarios" />
+                <ScalarProperty Name="PorcentajeFacturado" ColumnName="PorcentajeFacturado" />
+                <ScalarProperty Name="PorcentajeFacturadoHonorarios" ColumnName="PorcentajeFacturadoHonorarios" />
+                <ScalarProperty Name="PersonaSupervisorTecnico_Id" ColumnName="PersonaSupervisorTecnico_Id" />
+                <ScalarProperty Name="ContratoMarco_Id" ColumnName="ContratoMarco_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContratosMarco">
+            <EntityTypeMapping TypeName="GCP_BDModel.ContratosMarco">
+              <MappingFragment StoreEntitySet="ContratosMarco">
+                <ScalarProperty Name="ContratoMarco_Id" ColumnName="ContratoMarco_Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="GCP_BDModel.Personas">
+              <MappingFragment StoreEntitySet="Personas">
+                <ScalarProperty Name="TipoPersona_Id" ColumnName="TipoPersona_Id" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Persona_Id" ColumnName="Persona_Id" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="GCP_BDModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposContratos">
+            <EntityTypeMapping TypeName="GCP_BDModel.TiposContratos">
+              <MappingFragment StoreEntitySet="TiposContratos">
+                <ScalarProperty Name="TipoContrato_Id" ColumnName="TipoContrato_Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposPersona">
+            <EntityTypeMapping TypeName="GCP_BDModel.TiposPersona">
+              <MappingFragment StoreEntitySet="TiposPersona">
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+                <ScalarProperty Name="TipoPersona_Id" ColumnName="TipoPersona_Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Naturaleza_Id" ColumnName="Naturaleza_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposEstadoContrato">
+            <EntityTypeMapping TypeName="GCP_BDModel.TiposEstadoContrato">
+              <MappingFragment StoreEntitySet="TiposEstadoContrato">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="TipoEstadoContrato_Id" ColumnName="TipoEstadoContrato_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposNaturaleza">
+            <EntityTypeMapping TypeName="GCP_BDModel.TiposNaturaleza">
+              <MappingFragment StoreEntitySet="TiposNaturaleza">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Naturaleza_Id" ColumnName="Naturaleza_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
